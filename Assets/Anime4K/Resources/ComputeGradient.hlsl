@@ -3,24 +3,23 @@ float4 Fragment(
     float2 texCoord : TEXCOORD
 ) : SV_Target
 {
-    float4 duv = _MainTex_TexelSize.xyxy * float4(1, 1, -1, 0);
-
-    // Center sample
 	float4 c0 = tex2D(_MainTex, texCoord);
 
-	// [tl  t tr]
-	// [ l     r]
-	// [bl  b br]
+	// [tl tc tr]
+	// [ml    mr]
+	// [bl bc br]
+
+    float4 duv = _MainTex_TexelSize.xyxy * float4(1, 1, -1, 0);
 
 	float tl = tex2D(_MainTex, texCoord - duv.xy).a;
-	float t  = tex2D(_MainTex, texCoord - duv.wy).a;
+	float tc = tex2D(_MainTex, texCoord - duv.wy).a;
 	float tr = tex2D(_MainTex, texCoord - duv.zy).a;
 
-	float l  = tex2D(_MainTex, texCoord - duv.xw).a;
-	float r  = tex2D(_MainTex, texCoord + duv.xw).a;
+	float ml = tex2D(_MainTex, texCoord - duv.xw).a;
+	float mr = tex2D(_MainTex, texCoord + duv.xw).a;
 
 	float bl = tex2D(_MainTex, texCoord + duv.zy).a;
-	float b  = tex2D(_MainTex, texCoord + duv.wy).a;
+	float bc = tex2D(_MainTex, texCoord + duv.wy).a;
 	float br = tex2D(_MainTex, texCoord + duv.xy).a;
 
 	// Horizontal gradient
@@ -33,10 +32,10 @@ float4 Fragment(
 	// [ 0  0  0]
 	// [ 1  2  1]
 
-	float x = tr + r * 2 + br - (tl + l * 2 + bl);
-	float y = bl + b * 2 + br - (tl + t * 2 + tr);
+    float2 grad = float2(tr + mr * 2 + br - (tl + ml * 2 + bl),
+	                     bl + bc * 2 + br - (tl + tc * 2 + tr));
 
 	// Computes the luminance's gradient and saves it in the unused alpha channel
-	return float4(c0.rgb, 1 - saturate(length(float2(x, y))));
+	return float4(c0.rgb, 1 - saturate(length(grad)));
 }
 
