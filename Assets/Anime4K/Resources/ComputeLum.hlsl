@@ -1,14 +1,8 @@
-#include "UnityCG.cginc"
-
-sampler2D _MainTex;
-
-float4 frag(v2f_img i) : SV_Target
+float4 Fragment(
+    float4 position : SV_Position,
+    float2 texCoord : TEXCOORD
+) : SV_Target
 {
-    float4 c0 = tex2D(_MainTex, i.uv);
-
-	//Quick luminance approximation
-	float lum = (c0[0] + c0[0] + c0[1] + c0[1] + c0[1] + c0[2]) / 6;
-
-	//Computes the luminance and saves it in the unused alpha channel
-	return float4(c0[0], c0[1], c0[2], lum);
+    float4 c = tex2D(_MainTex, texCoord);
+    return float4(c.rgb, Luma(c.rgb));
 }

@@ -1,42 +1,42 @@
-#include "UnityCG.cginc"
-
-sampler2D _MainTex;
-float4 _MainTex_TexelSize;
-
-float4 frag(v2f_img i) : SV_Target
+float4 Fragment(
+    float4 position : SV_Position,
+    float2 texCoord : TEXCOORD
+) : SV_Target
 {
-    const float dx = _MainTex_TexelSize.x;
-    const float dy = _MainTex_TexelSize.y;
+    float4 duv = _MainTex_TexelSize.xyxy * float4(1, 1, -1, 0);
 
-	float4 c0 = tex2D(_MainTex, i.uv);
+    // Center sample
+	float4 c0 = tex2D(_MainTex, texCoord);
 
-	//[tl  t tr]
-	//[ l     r]
-	//[bl  b br]
-	float t  = tex2D(_MainTex, i.uv + float2(  0, -dy))[3];
-	float tl = tex2D(_MainTex, i.uv + float2(-dx, -dy))[3];
-	float tr = tex2D(_MainTex, i.uv + float2( dx, -dy))[3];
+	// [tl  t tr]
+	// [ l     r]
+	// [bl  b br]
 
-	float l  = tex2D(_MainTex, i.uv + float2(-dx,   0))[3];
-	float r  = tex2D(_MainTex, i.uv + float2( dx,   0))[3];
+	float tl = tex2D(_MainTex, texCoord - duv.xy).a;
+	float t  = tex2D(_MainTex, texCoord - duv.wy).a;
+	float tr = tex2D(_MainTex, texCoord - duv.zy).a;
 
-	float b  = tex2D(_MainTex, i.uv + float2(  0,  dy))[3];
-	float bl = tex2D(_MainTex, i.uv + float2(-dx,  dy))[3];
-	float br = tex2D(_MainTex, i.uv + float2( dx,  dy))[3];
+	float l  = tex2D(_MainTex, texCoord - duv.xw).a;
+	float r  = tex2D(_MainTex, texCoord + duv.xw).a;
 
-	//Horizontal Gradient
-	//[-1  0  1]
-	//[-2  0  2]
-	//[-1  0  1]
-	float xgrad = (-tl + tr - l - l + r + r - bl + br);
+	float bl = tex2D(_MainTex, texCoord + duv.zy).a;
+	float b  = tex2D(_MainTex, texCoord + duv.wy).a;
+	float br = tex2D(_MainTex, texCoord + duv.xy).a;
 
-	//Vertical Gradient
-	//[-1 -2 -1]
-	//[ 0  0  0]
-	//[ 1  2  1]
-	float ygrad = (-tl - t - t - tr + bl + b + b + br);
+	// Horizontal gradient
+	// [-1  0  1]
+	// [-2  0  2]
+	// [-1  0  1]
 
-	//Computes the luminance's gradient and saves it in the unused alpha channel
-	return float4(c0[0], c0[1], c0[2], 1 - clamp(sqrt(xgrad * xgrad + ygrad * ygrad), 0, 1));
+	// Vertical gradient
+	// [-1 -2 -1]
+	// [ 0  0  0]
+	// [ 1  2  1]
+
+	float x = tr + r * 2 + br - (tl + l * 2 + bl);
+	float y = bl + b * 2 + br - (tl + t * 2 + tr);
+
+	// Computes the luminance's gradient and saves it in the unused alpha channel
+	return float4(c0.rgb, 1 - saturate(length(float2(x, y))));
 }
 

@@ -10,33 +10,41 @@
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert_img
-            #pragma fragment frag
+            #pragma vertex Vertex
+            #pragma fragment Fragment
+            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+            #include "Common.hlsl"
             #include "ComputeLum.hlsl"
             ENDCG
         }
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert_img
-            #pragma fragment frag
+            #pragma vertex Vertex
+            #pragma fragment Fragment
+            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+            #include "Common.hlsl"
             #include "Push.hlsl"
             ENDCG
         }
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert_img
-            #pragma fragment frag
+            #pragma vertex Vertex
+            #pragma fragment Fragment
+            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+            #include "Common.hlsl"
             #include "ComputeGradient.hlsl"
             ENDCG
         }
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert_img
-            #pragma fragment frag
-            #include "PushGrad_Weak.hlsl"
+            #pragma vertex Vertex
+            #pragma fragment Fragment
+            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+            #include "Common.hlsl"
+            #include "PushGrad.hlsl"
             ENDCG
         }
     }
