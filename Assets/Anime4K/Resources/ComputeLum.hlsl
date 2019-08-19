@@ -4,5 +4,5 @@ float4 Fragment(
 ) : SV_Target
 {
     float4 c = tex2D(_MainTex, texCoord);
-    return float4(c.rgb, Luma(c.rgb));
+    return float4(c.rgb, Luminance(c.rgb));
 }
