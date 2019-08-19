@@ -25,8 +25,8 @@ Examples
 
 (Left: Bilinear, Right: Anime4K)
 
-Acknowledgement
----------------
+Acknowledgements
+----------------
 
 This repository contains the following image materials:
 
@@ -37,3 +37,12 @@ This repository contains the following image materials:
 - ジュエルセイバーFREE
 
   http://www.jewel-s.jp/
+
+License
+-------
+
+I (Keijiro Takahashi) waive all rights to the additions/modifications to the
+original Anime4K code. Please follow the [original license] when using the code
+in your project.
+
+[original license]: https://github.com/bloc97/Anime4K/blob/master/LICENSE
