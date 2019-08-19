@@ -25,6 +25,20 @@ Examples
 
 (Left: Bilinear, Right: Anime4K)
 
+How To Use
+----------
+
+There is only single static method in the namespace:
+
+`Anime4K.ImageFilter.Upscale(source, destination, push)`
+
+You can give any texture to `source`. An upscaled result will be stored in a
+render texture given in `destination`.
+
+The `push` parameter controls the strength of the sharpen effect with a value
+between 0 (weak) to 1 (strong). In most cases, it's okay to just set 1; Decrese
+it when the effect is noticeably too strong.
+
 Acknowledgements
 ----------------
 
