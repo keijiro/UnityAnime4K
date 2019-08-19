@@ -4,22 +4,22 @@ float _Strength;
 
 float MinA(float4 a, float4 b, float4 c)
 {
-	return min(min(a.a, b.a), c.a);
+    return min(min(a.a, b.a), c.a);
 }
 
 float MaxA(float4 a, float4 b, float4 c)
 {
-	return max(max(a.a, b.a), c.a);
+    return max(max(a.a, b.a), c.a);
 }
 
 float MinA(float4 a, float4 b, float4 c, float4 d)
 {
-	return min(min(min(a.a, b.a), c.a), d.a);
+    return min(min(min(a.a, b.a), c.a), d.a);
 }
 
 float MaxA(float4 a, float4 b, float4 c, float4 d)
 {
-	return max(max(max(a.a, b.a), c.a), d.a);
+    return max(max(max(a.a, b.a), c.a), d.a);
 }
 
 float Luma(float3 rgb)

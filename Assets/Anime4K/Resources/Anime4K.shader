@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Anime4K"
+Shader "Hidden/Anime4K"
 {
     Properties
     {
