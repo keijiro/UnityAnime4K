@@ -22,7 +22,6 @@ Shader "Hidden/Anime4K"
             CGPROGRAM
             #pragma vertex Vertex
             #pragma fragment Fragment
-            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
             #include "Common.hlsl"
             #include "Push.hlsl"
             ENDCG
@@ -32,7 +31,6 @@ Shader "Hidden/Anime4K"
             CGPROGRAM
             #pragma vertex Vertex
             #pragma fragment Fragment
-            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
             #include "Common.hlsl"
             #include "ComputeGradient.hlsl"
             ENDCG
@@ -42,7 +40,6 @@ Shader "Hidden/Anime4K"
             CGPROGRAM
             #pragma vertex Vertex
             #pragma fragment Fragment
-            #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
             #include "Common.hlsl"
             #include "PushGrad.hlsl"
             ENDCG
