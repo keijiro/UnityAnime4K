@@ -3,6 +3,9 @@ Unity.
 
 Anime4K - https://github.com/bloc97/Anime4K
 
+![Bilinear](https://i.imgur.com/OeL87Ft.png)
+![Anime4K](https://i.imgur.com/Pwplwly.png)
+
 This repository contains the following image materials obtained from the Niconi
 Commons site.
 
